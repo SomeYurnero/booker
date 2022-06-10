@@ -1,5 +1,16 @@
-import app from './app.js';
+import { ApolloServer } from 'apollo-server';
+import dotenv from 'dotenv';
+import typeDefs from './schema.js';
+import resolvers from './resolvers.js';
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running at http://localhost:${process.env.PORT}...`);
+// // Running dotenv to get access to environment variables
+dotenv.config();
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers
+});
+
+server.listen().then(data => {
+    console.log(data);
 });
