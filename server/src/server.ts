@@ -1,11 +1,7 @@
 import { ApolloServer } from 'apollo-server';
-import dotenv from 'dotenv';
 import typeDefs from './schema.js';
 import resolvers from './resolvers.js';
 import pgClient from './db.js';
-
-// Running dotenv to get access to environment variables
-dotenv.config();
 
 const server = new ApolloServer({
     typeDefs,
@@ -14,6 +10,7 @@ const server = new ApolloServer({
 
 // Connecting to heroku postgresql database
 pgClient.connect(error => {
+    if (error) return console.log('Database connection failed');
     console.log('Database successfully connected');
 });
 

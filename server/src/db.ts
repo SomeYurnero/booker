@@ -1,11 +1,13 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
 
-const pgClient = new pg.Client({
-    host: process.env.PG_HOST,
-    user: process.env.PG_USER,
-    port: process.env.PG_PORT as unknown as number,
-    password: process.env.PG_PASSWORD,
-    database: process.env.PG_DATABASE
+// Running dotenv to get access to environment variables
+dotenv.config();
+
+export const pgClient = new pg.Client({
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 export default pgClient;
